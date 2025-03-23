@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import supabase from '@/lib/supabaseClient'
 import { ref } from 'vue'
-import type { Tables } from '../../database/database.types'
+import type { Tables } from '../../../database/database.types'
 
 const projects = ref<Tables<'projects'>[]>([])
 
@@ -12,7 +12,6 @@ const getProjects = async (): Promise<Tables<'projects'>[]> => {
     console.error(error)
     return []
   } else {
-    console.log(projects)
     return projects
   }
 }
@@ -28,7 +27,14 @@ const getProjects = async (): Promise<Tables<'projects'>[]> => {
 
     <ul>
       <li v-for="project in projects" :key="project.id">
-        {{ project.name }} {{ project.created_at }}
+        <RouterLink
+          :to="{
+            name: '/projects/[slug]',
+            params: { slug: project.slug },
+          }"
+          >{{ project.name }}</RouterLink
+        >
+        {{ project.created_at }}
       </li>
     </ul>
 
