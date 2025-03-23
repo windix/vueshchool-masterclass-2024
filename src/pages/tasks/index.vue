@@ -1,0 +1,46 @@
+<script setup lang="ts">
+import supabase from '@/lib/supabaseClient'
+import { ref } from 'vue'
+import type { Tables } from '../../../database/database.types'
+
+const tasks = ref<Tables<'tasks'>[]>([])
+
+const getTasks = async (): Promise<Tables<'tasks'>[]> => {
+  const { data: tasks, error } = await supabase.from('tasks').select().limit(5)
+
+  if (error) {
+    console.error(error)
+    return []
+  } else {
+    return tasks
+  }
+}
+
+;(async () => {
+  tasks.value = await getTasks()
+})()
+</script>
+
+<template>
+  <div>
+    <h1>Tasks</h1>
+
+    <ul>
+      <li v-for="task in tasks" :key="task.id">
+        <!-- <RouterLink
+          :to="{
+            name: '/tasks/[id]',
+            params: { id: task.id },
+          }"
+          >{{ task.name }}</RouterLink
+        > -->
+        {{ task.name }}
+        {{ task.status }}
+        {{ task.project_id }}
+        {{ task.created_at }}
+      </li>
+    </ul>
+
+    <RouterLink to="/">Home</RouterLink>
+  </div>
+</template>
