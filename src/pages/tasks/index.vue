@@ -5,19 +5,18 @@ import type { Tables } from '../../../database/database.types'
 const tasks = ref<Tables<'tasks'>[]>([])
 
 const getTasks = async (): Promise<Tables<'tasks'>[]> => {
-  const { data: tasks, error } = await supabase.from('tasks').select().limit(5)
+  const { data, error } = await supabase.from('tasks').select().limit(5)
 
   if (error) {
     console.error(error)
     return []
   } else {
-    return tasks
+    tasks.value = data
+    return data
   }
 }
 
-;(async () => {
-  tasks.value = await getTasks()
-})()
+await getTasks()
 </script>
 
 <template>

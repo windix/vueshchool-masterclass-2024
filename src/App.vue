@@ -4,6 +4,15 @@ import 'iconify-icon'
 
 <template>
   <AuthLayout>
-    <RouterView />
+    <RouterView v-slot="{ Component, route }">
+      <Suspense v-if="Component" :timeout="1000">
+        <!-- main content -->
+        <Component :is="Component" :key="route.name"></Component>
+        <!-- loading state -->
+        <template #fallback>
+          <span>Loading...</span>
+        </template>
+      </Suspense>
+    </RouterView>
   </AuthLayout>
 </template>
