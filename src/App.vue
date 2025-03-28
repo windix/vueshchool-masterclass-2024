@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import 'iconify-icon'
-import AuthLayout from '@/components/Layout/main/AuthLayout.vue'
 </script>
 
 <template>
