@@ -35,7 +35,12 @@ export default defineConfig({
         'vue',
         // 'vue-router',
         VueRouterAutoImports,
+        {
+          pinia: ['defineStore', 'storeToRefs', 'acceptHMRUpdate'],
+        },
       ],
+
+      dirs: ['./src/stores'],
 
       // Filepath to generate corresponding .d.ts file.
       // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.

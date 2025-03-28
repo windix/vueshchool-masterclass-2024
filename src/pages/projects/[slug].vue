@@ -14,6 +14,7 @@ const getProject = async (slug: string): Promise<Tables<'projects'> | null> => {
     return null
   } else {
     project.value = data
+    usePageStore().pageData.title = data.name
     return data
   }
 }

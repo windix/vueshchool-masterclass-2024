@@ -2,6 +2,8 @@
 import supabase from '@/lib/supabaseClient'
 import type { Tables } from '../../../database/database.types'
 
+usePageStore().pageData.title = 'Projects'
+
 const projects = ref<Tables<'projects'>[]>([])
 
 const getProjects = async (): Promise<Tables<'projects'>[]> => {
@@ -21,8 +23,6 @@ await getProjects()
 
 <template>
   <div>
-    <h1>Projects</h1>
-
     <ul>
       <li v-for="project in projects" :key="project.id">
         <RouterLink
@@ -35,7 +35,5 @@ await getProjects()
         {{ project.created_at }}
       </li>
     </ul>
-
-    <RouterLink to="/">Home</RouterLink>
   </div>
 </template>
