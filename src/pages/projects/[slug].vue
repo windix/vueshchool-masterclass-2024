@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
 import supabase from '@/lib/supabaseClient'
 import type { Tables } from '../../../database/database.types'
-import { ref } from 'vue'
 
 const route = useRoute()
 

@@ -25,6 +25,19 @@ export default defineConfigWithVueTs(
     rules: {
       // used by `unplugin-vue-router`
       'vue/multi-word-component-names': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
+    },
+  },
+  {
+    settings: {
+      'import/core-modules': ['vue-router/auto-routes'],
     },
   },
 )

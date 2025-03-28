@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import supabase from '@/lib/supabaseClient'
-import { ref } from 'vue'
 import type { Tables } from '../../../database/database.types'
 
 const projects = ref<Tables<'projects'>[]>([])
