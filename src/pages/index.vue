@@ -1,8 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import DataTable from '@/components/payments/data-table.vue'
+import { columns } from '@/components/payments/columns'
+import { payments } from '@/lib/payments'
+</script>
 
 <template>
-  <div>
-    <h1>Home Page</h1>
-    <RouterLink to="/projects">Projects</RouterLink>
+  <div class="container py-10 mx-auto">
+    <DataTable :columns="columns" :data="payments" />
   </div>
 </template>
