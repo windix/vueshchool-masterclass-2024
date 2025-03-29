@@ -1,14 +1,25 @@
 <script setup lang="ts">
 import supabase from '@/lib/supabaseClient'
 import { columns } from '@/components/columns/tasks'
-import type { Tables } from 'database/database.types'
+import type { QueryData } from '@supabase/supabase-js'
 
 usePageStore().pageData.title = 'My Tasks'
 
-const tasks = ref<Tables<'tasks'>[]>([])
+const tasksWithProjectsQuery = supabase.from('tasks').select(`
+  *,
+  projects (
+    id, name, slug
+  )
+`)
 
-const getTasks = async (): Promise<Tables<'tasks'>[]> => {
-  const { data, error } = await supabase.from('tasks').select()
+export type TasksWithProjects = QueryData<typeof tasksWithProjectsQuery>
+
+const tasks = ref<TasksWithProjects>([])
+
+const getTasks = async (): Promise<TasksWithProjects> => {
+  const { data, error } = await tasksWithProjectsQuery
+
+  console.log(data)
 
   if (error) {
     console.error(error)

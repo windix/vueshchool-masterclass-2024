@@ -3,10 +3,11 @@ import { h } from 'vue'
 import DropdownAction from '../data-table/DataTableDropdown.vue'
 import DataTableColumnHeader from '../data-table/DataTableColumnHeader.vue'
 import { Checkbox } from '../ui/checkbox'
-import type { Tables } from 'database/database.types'
 import { formatIsoDateTime } from '@/lib/date'
+import { RouterLink } from 'vue-router'
+import type { TasksWithProjects } from '@/pages/tasks/index.vue'
 
-type Task = Tables<'tasks'>
+type Task = TasksWithProjects[0]
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -56,14 +57,24 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('due_date')),
   },
   {
-    accessorKey: 'project_id',
+    accessorKey: 'projects',
     header: ({ column }) =>
-      h(DataTableColumnHeader<Task, unknown>, {
-        column,
-        class: 'ml-2 h-4 w-4',
-        title: 'Project',
-      }),
-    cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('project_id')),
+      h(DataTableColumnHeader<Task, unknown>, { column, class: 'ml-2 h-4 w-4', title: 'Project' }),
+    cell: ({ row }) => {
+      return row.original.projects
+        ? h(
+            RouterLink,
+            {
+              class: 'text-left font-medium hover:underline',
+              to: {
+                name: '/projects/[slug]',
+                params: { slug: row.original.projects.slug },
+              },
+            },
+            () => row.original.projects?.name,
+          )
+        : ''
+    },
   },
   {
     accessorKey: 'created_at',
