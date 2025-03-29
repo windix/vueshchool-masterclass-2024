@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "^22.14.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -20,7 +23,7 @@
     "db:migrate:up": "supabase migration up --linked",
     "db:reset": "supabase db reset --linked",
     "db:seed": "node --env-file=.env database/seed.js",
-    "npm-update-check": "ncu --target minor"
+    "npm-check-updates": "ncu --target minor"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.3",
