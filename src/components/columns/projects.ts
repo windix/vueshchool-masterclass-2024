@@ -5,6 +5,7 @@ import DataTableColumnHeader from '../data-table/DataTableColumnHeader.vue'
 import { Checkbox } from '../ui/checkbox'
 import type { Tables } from 'database/database.types'
 import { RouterLink } from 'vue-router'
+import { formatIsoDateTime } from '@/lib/date'
 
 type Project = Tables<'projects'>
 
@@ -64,7 +65,8 @@ export const columns: ColumnDef<Project>[] = [
         class: 'ml-2 h-4 w-4',
         title: 'Created',
       }),
-    cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('created_at')),
+    cell: ({ row }) =>
+      h('div', { class: 'text-left font-medium' }, formatIsoDateTime(row.getValue('created_at'))),
   },
   {
     accessorKey: 'collaborators',
