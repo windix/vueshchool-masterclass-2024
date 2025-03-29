@@ -18,6 +18,7 @@ import {
 import { valueUpdater } from '@/lib/utils'
 import DataTablePagination from './DataTablePagination.vue'
 import DataTableViewOptions from './DataTableViewOptions.vue'
+import DataTableFilterInput from './DataTableFilterInput.vue'
 
 const props = defineProps<{
   columns: ColumnDef<TData, TValue>[]
@@ -70,12 +71,7 @@ const table = useVueTable({
 <template>
   <div>
     <div class="flex items-center py-4">
-      <Input
-        class="max-w-sm"
-        placeholder="Filter emails..."
-        :model-value="table.getColumn('email')?.getFilterValue() as string"
-        @update:model-value="table.getColumn('email')?.setFilterValue($event)"
-      />
+      <DataTableFilterInput :table="table" :column-name="'name'" />
       <DataTableViewOptions :table="table" />
     </div>
     <div class="border rounded-md">

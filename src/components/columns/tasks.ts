@@ -1,11 +1,13 @@
-import type { Payment } from '@/lib/payments'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { h } from 'vue'
 import DropdownAction from '../data-table/DataTableDropdown.vue'
 import DataTableColumnHeader from '../data-table/DataTableColumnHeader.vue'
 import { Checkbox } from '../ui/checkbox'
+import type { Tables } from 'database/database.types'
 
-export const columns: ColumnDef<Payment>[] = [
+type Task = Tables<'tasks'>
+
+export const columns: ColumnDef<Task>[] = [
   {
     id: 'select',
     header: ({ table }) =>
@@ -27,15 +29,15 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'name',
     header: ({ column }) =>
-      h(DataTableColumnHeader<Payment, unknown>, { column, class: 'ml-2 h-4 w-4', title: 'Email' }),
-    cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('email')),
+      h(DataTableColumnHeader<Task, unknown>, { column, class: 'ml-2 h-4 w-4', title: 'Name' }),
+    cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('name')),
   },
   {
     accessorKey: 'status',
     header: ({ column }) =>
-      h(DataTableColumnHeader<Payment, unknown>, {
+      h(DataTableColumnHeader<Task, unknown>, {
         column,
         class: 'ml-2 h-4 w-4',
         title: 'Status',
@@ -43,34 +45,24 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('status')),
   },
   {
-    accessorKey: 'amount',
+    accessorKey: 'created_at',
     header: ({ column }) =>
-      h(DataTableColumnHeader<Payment, unknown>, {
+      h(DataTableColumnHeader<Task, unknown>, {
         column,
         class: 'ml-2 h-4 w-4',
-        title: 'Amount',
+        title: 'Created',
       }),
-    cell: ({ row }) => {
-      const amount = Number.parseFloat(row.getValue('amount'))
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(amount)
-
-      return h('div', { class: 'text-right font-medium' }, formatted)
-    },
+    cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('created_at')),
   },
   {
     id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original
-
       return h(
         'div',
         { class: 'relative' },
         h(DropdownAction, {
-          payment,
+          entry: { id: row.original.id.toString() },
           onExpand: row.toggleExpanded,
         }),
       )

@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import supabase from '@/lib/supabaseClient'
-import type { Tables } from '../../../database/database.types'
+import { columns } from '@/components/columns/projects'
+import type { Tables } from 'database/database.types'
 
 usePageStore().pageData.title = 'Projects'
 
 const projects = ref<Tables<'projects'>[]>([])
 
 const getProjects = async (): Promise<Tables<'projects'>[]> => {
-  const { data, error } = await supabase.from('projects').select().limit(5)
+  const { data, error } = await supabase.from('projects').select()
 
   if (error) {
     console.error(error)
@@ -22,18 +23,7 @@ await getProjects()
 </script>
 
 <template>
-  <div>
-    <ul>
-      <li v-for="project in projects" :key="project.id">
-        <RouterLink
-          :to="{
-            name: '/projects/[slug]',
-            params: { slug: project.slug },
-          }"
-          >{{ project.name }}</RouterLink
-        >
-        {{ project.created_at }}
-      </li>
-    </ul>
+  <div class="container mx-auto">
+    <DataTable :columns="columns" :data="projects" />
   </div>
 </template>

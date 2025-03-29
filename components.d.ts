@@ -17,6 +17,7 @@ declare module 'vue' {
     DataTable: typeof import('./src/components/data-table/DataTable.vue')['default']
     DataTableColumnHeader: typeof import('./src/components/data-table/DataTableColumnHeader.vue')['default']
     DataTableDropdown: typeof import('./src/components/data-table/DataTableDropdown.vue')['default']
+    DataTableFilterInput: typeof import('./src/components/data-table/DataTableFilterInput.vue')['default']
     DataTablePagination: typeof import('./src/components/data-table/DataTablePagination.vue')['default']
     DataTableViewOptions: typeof import('./src/components/data-table/DataTableViewOptions.vue')['default']
     DropdownMenu: typeof import('./src/components/ui/dropdown-menu/DropdownMenu.vue')['default']
