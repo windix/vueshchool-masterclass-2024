@@ -6,6 +6,14 @@ const route = useRoute()
 
 const project = ref<Tables<'projects'> | null>(null)
 
+watch(
+  () => project.value?.name,
+  (newValue) => {
+    usePageStore().pageData.title = `Project: ${newValue || ''}`
+  },
+  { immediate: true },
+)
+
 const getProject = async (slug: string): Promise<Tables<'projects'> | null> => {
   const { data, error } = await supabase.from('projects').select().eq('slug', slug).single()
 
@@ -14,7 +22,7 @@ const getProject = async (slug: string): Promise<Tables<'projects'> | null> => {
     return null
   } else {
     project.value = data
-    usePageStore().pageData.title = data.name
+    // usePageStore().pageData.title = data.name
     return data
   }
 }
