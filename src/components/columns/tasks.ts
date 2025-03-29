@@ -5,11 +5,9 @@ import DataTableColumnHeader from '../data-table/DataTableColumnHeader.vue'
 import { Checkbox } from '../ui/checkbox'
 import { formatIsoDateTime } from '@/lib/date'
 import { RouterLink } from 'vue-router'
-import type { TasksWithProjects } from '@/pages/tasks/index.vue'
+import type { TaskWithProjects } from '@/lib/supabaseQueries'
 
-type Task = TasksWithProjects[0]
-
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<TaskWithProjects>[] = [
   {
     id: 'select',
     header: ({ table }) =>
@@ -33,13 +31,17 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) =>
-      h(DataTableColumnHeader<Task, unknown>, { column, class: 'ml-2 h-4 w-4', title: 'Name' }),
+      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
+        column,
+        class: 'ml-2 h-4 w-4',
+        title: 'Name',
+      }),
     cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('name')),
   },
   {
     accessorKey: 'status',
     header: ({ column }) =>
-      h(DataTableColumnHeader<Task, unknown>, {
+      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
         column,
         class: 'ml-2 h-4 w-4',
         title: 'Status',
@@ -49,7 +51,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: 'due_date',
     header: ({ column }) =>
-      h(DataTableColumnHeader<Task, unknown>, {
+      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
         column,
         class: 'ml-2 h-4 w-4',
         title: 'Due Date',
@@ -59,7 +61,11 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: 'projects',
     header: ({ column }) =>
-      h(DataTableColumnHeader<Task, unknown>, { column, class: 'ml-2 h-4 w-4', title: 'Project' }),
+      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
+        column,
+        class: 'ml-2 h-4 w-4',
+        title: 'Project',
+      }),
     cell: ({ row }) => {
       return row.original.projects
         ? h(
@@ -79,7 +85,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: 'created_at',
     header: ({ column }) =>
-      h(DataTableColumnHeader<Task, unknown>, {
+      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
         column,
         class: 'ml-2 h-4 w-4',
         title: 'Created',
@@ -90,7 +96,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: 'collaborators',
     header: ({ column }) =>
-      h(DataTableColumnHeader<Task, unknown>, {
+      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
         column,
         class: 'ml-2 h-4 w-4',
         title: 'Collaborators',

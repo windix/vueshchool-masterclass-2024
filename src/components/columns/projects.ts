@@ -3,11 +3,9 @@ import { h } from 'vue'
 import DropdownAction from '../data-table/DataTableDropdown.vue'
 import DataTableColumnHeader from '../data-table/DataTableColumnHeader.vue'
 import { Checkbox } from '../ui/checkbox'
-import type { Tables } from 'database/database.types'
 import { RouterLink } from 'vue-router'
 import { formatIsoDateTime } from '@/lib/date'
-
-type Project = Tables<'projects'>
+import type { Project } from '@/lib/supabaseQueries'
 
 export const columns: ColumnDef<Project>[] = [
   {

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import supabase from '@/lib/supabaseClient'
 import { columns } from '@/components/columns/projects'
-import type { Tables } from 'database/database.types'
+import { projectsQuery } from '@/lib/supabaseQueries'
+import type { Projects } from '@/lib/supabaseQueries'
 
 usePageStore().pageData.title = 'Projects'
 
-const projects = ref<Tables<'projects'>[]>([])
+const projects = ref<Projects>([])
 
-const getProjects = async (): Promise<Tables<'projects'>[]> => {
-  const { data, error } = await supabase.from('projects').select()
+const getProjects = async (): Promise<Projects> => {
+  const { data, error } = await projectsQuery
 
   if (error) {
     console.error(error)
