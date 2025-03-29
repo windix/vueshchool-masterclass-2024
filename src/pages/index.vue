@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import DataTable from '@/components/payments/data-table.vue'
 import { columns } from '@/components/payments/columns'
 import { payments } from '@/lib/payments'
 

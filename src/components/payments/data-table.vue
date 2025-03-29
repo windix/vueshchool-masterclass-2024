@@ -7,16 +7,6 @@ import type {
   VisibilityState,
 } from '@tanstack/vue-table'
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import {
   FlexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -25,16 +15,8 @@ import {
   getExpandedRowModel,
   useVueTable,
 } from '@tanstack/vue-table'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 import { ChevronDown } from 'lucide-vue-next'
-
 import { valueUpdater } from '@/lib/utils'
-import { ref } from 'vue'
 
 const props = defineProps<{
   columns: ColumnDef<TData, TValue>[]
