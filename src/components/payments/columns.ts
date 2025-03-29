@@ -1,9 +1,8 @@
 import type { Payment } from '@/lib/payments'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { h } from 'vue'
-import DropdownAction from './data-table-dropdown.vue'
-import { Button } from '../ui/button'
-import { ArrowUpDown } from 'lucide-vue-next'
+import DropdownAction from './DataTableDropdown.vue'
+import DataTableColumnHeader from './DataTableColumnHeader.vue'
 import { Checkbox } from '../ui/checkbox'
 
 export const columns: ColumnDef<Payment>[] = [
@@ -30,24 +29,27 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'email',
     header: ({ column }) =>
-      h(
-        Button,
-        {
-          variant: 'ghost',
-          onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
-        },
-        () => ['Email', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })],
-      ),
+      h(DataTableColumnHeader<Payment, unknown>, { column, class: 'ml-2 h-4 w-4', title: 'Email' }),
     cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('email')),
   },
   {
     accessorKey: 'status',
-    header: () => h('div', { class: 'text-left' }, 'Status'),
+    header: ({ column }) =>
+      h(DataTableColumnHeader<Payment, unknown>, {
+        column,
+        class: 'ml-2 h-4 w-4',
+        title: 'Status',
+      }),
     cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('status')),
   },
   {
     accessorKey: 'amount',
-    header: () => h('div', { class: 'text-right' }, 'Amount'),
+    header: ({ column }) =>
+      h(DataTableColumnHeader<Payment, unknown>, {
+        column,
+        class: 'ml-2 h-4 w-4',
+        title: 'Amount',
+      }),
     cell: ({ row }) => {
       const amount = Number.parseFloat(row.getValue('amount'))
       const formatted = new Intl.NumberFormat('en-US', {
