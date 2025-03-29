@@ -38,6 +38,7 @@ export type Database = {
         Row: {
           collaborators: string[]
           created_at: string
+          description: string | null
           id: number
           name: string
           slug: string
@@ -46,6 +47,7 @@ export type Database = {
         Insert: {
           collaborators?: string[]
           created_at?: string
+          description?: string | null
           id?: never
           name: string
           slug: string
@@ -54,6 +56,7 @@ export type Database = {
         Update: {
           collaborators?: string[]
           created_at?: string
+          description?: string | null
           id?: never
           name?: string
           slug?: string
@@ -65,7 +68,7 @@ export type Database = {
         Row: {
           collaborators: string[]
           created_at: string
-          description: string
+          description: string | null
           due_date: string | null
           id: number
           name: string
@@ -75,7 +78,7 @@ export type Database = {
         Insert: {
           collaborators?: string[]
           created_at?: string
-          description: string
+          description?: string | null
           due_date?: string | null
           id?: never
           name: string
@@ -85,7 +88,7 @@ export type Database = {
         Update: {
           collaborators?: string[]
           created_at?: string
-          description?: string
+          description?: string | null
           due_date?: string | null
           id?: never
           name?: string
