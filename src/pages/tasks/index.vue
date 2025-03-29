@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { columns } from '@/components/columns/tasks'
+import { columns } from '@/lib/columns/tasks'
 import { tasksWithProjectsQuery } from '@/lib/supabaseQueries'
 import type { TasksWithProjects } from '@/lib/supabaseQueries'
 

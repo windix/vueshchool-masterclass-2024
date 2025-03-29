@@ -1,13 +1,13 @@
 import type { ColumnDef } from '@tanstack/vue-table'
 import { h } from 'vue'
-import DropdownAction from '../data-table/DataTableDropdown.vue'
-import DataTableColumnHeader from '../data-table/DataTableColumnHeader.vue'
-import { Checkbox } from '../ui/checkbox'
-import { formatIsoDateTime } from '@/lib/date'
+import DropdownAction from '@/components/data-table/DataTableDropdown.vue'
+import DataTableColumnHeader from '@/components/data-table/DataTableColumnHeader.vue'
+import { Checkbox } from '@/components/ui/checkbox'
 import { RouterLink } from 'vue-router'
-import type { TaskWithProjects } from '@/lib/supabaseQueries'
+import { formatIsoDateTime } from '@/lib/date'
+import type { Project } from '@/lib/supabaseQueries'
 
-export const columns: ColumnDef<TaskWithProjects>[] = [
+export const columns: ColumnDef<Project>[] = [
   {
     id: 'select',
     header: ({ table }) =>
@@ -31,17 +31,24 @@ export const columns: ColumnDef<TaskWithProjects>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) =>
-      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
-        column,
-        class: 'ml-2 h-4 w-4',
-        title: 'Name',
-      }),
-    cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('name')),
+      h(DataTableColumnHeader<Project, unknown>, { column, class: 'ml-2 h-4 w-4', title: 'Name' }),
+    cell: ({ row }) =>
+      h(
+        RouterLink,
+        {
+          class: 'text-left font-medium hover:underline',
+          to: {
+            name: '/projects/[slug]',
+            params: { slug: row.original.slug },
+          },
+        },
+        () => row.getValue('name'),
+      ),
   },
   {
     accessorKey: 'status',
     header: ({ column }) =>
-      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
+      h(DataTableColumnHeader<Project, unknown>, {
         column,
         class: 'ml-2 h-4 w-4',
         title: 'Status',
@@ -49,43 +56,9 @@ export const columns: ColumnDef<TaskWithProjects>[] = [
     cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('status')),
   },
   {
-    accessorKey: 'due_date',
-    header: ({ column }) =>
-      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
-        column,
-        class: 'ml-2 h-4 w-4',
-        title: 'Due Date',
-      }),
-    cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('due_date')),
-  },
-  {
-    accessorKey: 'projects',
-    header: ({ column }) =>
-      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
-        column,
-        class: 'ml-2 h-4 w-4',
-        title: 'Project',
-      }),
-    cell: ({ row }) => {
-      return row.original.projects
-        ? h(
-            RouterLink,
-            {
-              class: 'text-left font-medium hover:underline',
-              to: {
-                name: '/projects/[slug]',
-                params: { slug: row.original.projects.slug },
-              },
-            },
-            () => row.original.projects?.name,
-          )
-        : ''
-    },
-  },
-  {
     accessorKey: 'created_at',
     header: ({ column }) =>
-      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
+      h(DataTableColumnHeader<Project, unknown>, {
         column,
         class: 'ml-2 h-4 w-4',
         title: 'Created',
@@ -96,7 +69,7 @@ export const columns: ColumnDef<TaskWithProjects>[] = [
   {
     accessorKey: 'collaborators',
     header: ({ column }) =>
-      h(DataTableColumnHeader<TaskWithProjects, unknown>, {
+      h(DataTableColumnHeader<Project, unknown>, {
         column,
         class: 'ml-2 h-4 w-4',
         title: 'Collaborators',
