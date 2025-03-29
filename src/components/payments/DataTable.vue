@@ -15,8 +15,9 @@ import {
   getExpandedRowModel,
   useVueTable,
 } from '@tanstack/vue-table'
-import { ChevronDown } from 'lucide-vue-next'
 import { valueUpdater } from '@/lib/utils'
+import DataTablePagination from './DataTablePagination.vue'
+import DataTableViewOptions from './DataTableViewOptions.vue'
 
 const props = defineProps<{
   columns: ColumnDef<TData, TValue>[]
@@ -75,29 +76,7 @@ const table = useVueTable({
         :model-value="table.getColumn('email')?.getFilterValue() as string"
         @update:model-value="table.getColumn('email')?.setFilterValue($event)"
       />
-      <DropdownMenu>
-        <DropdownMenuTrigger as-child>
-          <Button variant="outline" class="ml-auto">
-            Columns
-            <ChevronDown class="w-4 h-4 ml-2" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuCheckboxItem
-            v-for="column in table.getAllColumns().filter((column) => column.getCanHide())"
-            :key="column.id"
-            class="capitalize"
-            :modelValue="column.getIsVisible()"
-            @update:modelValue="
-              (value) => {
-                column.toggleVisibility(!!value)
-              }
-            "
-          >
-            {{ column.id }}
-          </DropdownMenuCheckboxItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <DataTableViewOptions :table="table" />
     </div>
     <div class="border rounded-md">
       <Table>
@@ -137,23 +116,6 @@ const table = useVueTable({
         </TableBody>
       </Table>
     </div>
-    <div class="flex items-center justify-end py-4 space-x-2">
-      <Button
-        variant="outline"
-        size="sm"
-        :disabled="!table.getCanPreviousPage()"
-        @click="table.previousPage()"
-      >
-        Previous
-      </Button>
-      <Button
-        variant="outline"
-        size="sm"
-        :disabled="!table.getCanNextPage()"
-        @click="table.nextPage()"
-      >
-        Next
-      </Button>
-    </div>
+    <DataTablePagination :table="table" />
   </div>
 </template>

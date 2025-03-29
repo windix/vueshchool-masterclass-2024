@@ -1,6 +1,5 @@
 <script setup lang="ts" generic="TData, TValue">
 import type { Column } from '@tanstack/vue-table'
-// import { type Task } from '../data/schema'
 import { ArrowDownIcon, ArrowUpIcon, ChevronsUpDownIcon, EyeOffIcon } from 'lucide-vue-next'
 import { cn } from '@/lib/utils'
 
