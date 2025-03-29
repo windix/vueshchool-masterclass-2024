@@ -1,8 +1,8 @@
 import type { Payment } from '@/lib/payments'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { h } from 'vue'
-import DropdownAction from './DataTableDropdown.vue'
-import DataTableColumnHeader from './DataTableColumnHeader.vue'
+import DropdownAction from '../data-table/DataTableDropdown.vue'
+import DataTableColumnHeader from '../data-table/DataTableColumnHeader.vue'
 import { Checkbox } from '../ui/checkbox'
 
 export const columns: ColumnDef<Payment>[] = [
