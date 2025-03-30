@@ -34,6 +34,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          first_name: string
+          id: string
+          last_name: string
+          mode: string
+          username: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          first_name: string
+          id: string
+          last_name: string
+          mode?: string
+          username: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          mode?: string
+          username?: string
+        }
+        Relationships: []
+      }
       projects: {
         Row: {
           collaborators: string[]

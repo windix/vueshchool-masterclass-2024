@@ -33,3 +33,8 @@ export const projectBySlugQuery = (slug: string) =>
     .single()
 
 export type ProjectWithTasks = QueryData<ReturnType<typeof projectBySlugQuery>>
+
+export const profileQuery = (userId: string) =>
+  supabase.from('profiles').select(`*`).eq('id', userId).single()
+
+export type Profile = QueryData<ReturnType<typeof profileQuery>>
