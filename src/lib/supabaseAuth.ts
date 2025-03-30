@@ -9,7 +9,7 @@ export const signUp = async (formData: RegisterForm) => {
 
   if (error) {
     console.error('Error signing up:', error)
-    return
+    return false
   }
 
   if (data.user) {
@@ -29,6 +29,7 @@ export const signUp = async (formData: RegisterForm) => {
       return false
     }
 
+    await useAuthStore().setAuth(data.session)
     return true
   }
 }
@@ -44,8 +45,21 @@ export const signIn = async (formData: LoginForm) => {
     return false
   }
 
-  if (data.session) {
+  if (data.user) {
     console.log('User signed in:', data)
+
+    await useAuthStore().setAuth(data.session)
     return true
   }
+}
+
+export const retrieveSession = async () => {
+  const { data, error } = await supabase.auth.getSession()
+
+  if (error) {
+    console.error('Error retrieving session:', error)
+    return
+  }
+
+  await useAuthStore().setAuth(data.session)
 }
