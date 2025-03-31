@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { signOut } from '@/lib/supabaseAuth'
+
 const topLinks = [
   { title: 'Dashboard', to: '/', icon: 'lucide:house' },
   { title: 'Projects', to: '/projects', icon: 'lucide:building-2' },
@@ -8,8 +10,14 @@ const topLinks = [
 const bottomLinks = [
   { title: 'Profile', to: '/profile', icon: 'lucide:user' },
   { title: 'Settings', to: '/settings', icon: 'lucide:settings' },
-  { title: 'Sign out', to: '/signout', icon: 'lucide:log-out' },
+  { title: 'Sign out', icon: 'lucide:log-out' },
 ]
+
+const executeAction = async (title: string) => {
+  if (title === 'Sign out') {
+    await signOut()
+  }
+}
 </script>
 
 <template>
@@ -31,7 +39,7 @@ const bottomLinks = [
       </div>
 
       <div class="border-y text-center bg-background py-3">
-        <SidebarLinks :links="bottomLinks" />
+        <SidebarLinks :links="bottomLinks" @actionClicked="executeAction" />
       </div>
     </nav>
   </aside>
