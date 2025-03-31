@@ -1,3 +1,4 @@
+import { retrieveSession } from '@/lib/supabaseAuth'
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
 
@@ -6,8 +7,15 @@ const router = createRouter({
   routes,
 })
 
-// router.beforeEach(async () => {
-//   await retrieveSession()
-// })
+router.beforeEach(async (to) => {
+  const authStore = useAuthStore()
+
+  // wait for pinia store updates before navigating
+  await retrieveSession()
+
+  if (!authStore.user && to.name !== '/auth/login' && to.name !== '/auth/register') {
+    return { name: '/auth/login' }
+  }
+})
 
 export default router

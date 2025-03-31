@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { signOut } from '@/lib/supabaseAuth'
 
+const router = useRouter()
+
 const topLinks = [
   { title: 'Dashboard', to: '/', icon: 'lucide:house' },
   { title: 'Projects', to: '/projects', icon: 'lucide:building-2' },
@@ -15,7 +17,9 @@ const bottomLinks = [
 
 const executeAction = async (title: string) => {
   if (title === 'Sign out') {
-    await signOut()
+    if (await signOut()) {
+      router.push('/auth/login')
+    }
   }
 }
 </script>
