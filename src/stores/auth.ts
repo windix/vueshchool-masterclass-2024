@@ -1,7 +1,11 @@
-import { profileQuery, type Profile } from '@/lib/supabaseQueries'
+import { listenToAuthEvents } from '@/lib/supabaseAuth'
+import type { Profile } from '@/lib/supabaseQueries'
+import { profileQuery } from '@/lib/supabaseQueries'
 import type { Session, User } from '@supabase/supabase-js'
 
 export const useAuthStore = defineStore('auth-store', () => {
+  const subscribedToAuthEvent = ref(false)
+
   const user = ref<User | null>(null)
   const profile = ref<Profile | null>(null)
 
@@ -37,7 +41,16 @@ export const useAuthStore = defineStore('auth-store', () => {
     await setProfile()
   }
 
-  return { user, profile, setAuth }
+  const subscribeToAuthEvents = () => {
+    if (subscribedToAuthEvent.value) {
+      return
+    }
+
+    listenToAuthEvents()
+    subscribedToAuthEvent.value = true
+  }
+
+  return { user, profile, setAuth, subscribeToAuthEvents }
 })
 
 if (import.meta.hot) {

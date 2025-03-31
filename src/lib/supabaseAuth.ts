@@ -65,13 +65,24 @@ export const signOut = async () => {
   return true
 }
 
-export const retrieveSession = async () => {
-  const { data, error } = await supabase.auth.getSession()
+// export const retrieveSession = async () => {
+//   const { data, error } = await supabase.auth.getSession()
 
-  if (error) {
-    console.error('Error retrieving session:', error)
-    return
-  }
+//   if (error) {
+//     console.error('Error retrieving session:', error)
+//     return
+//   }
 
-  await useAuthStore().setAuth(data.session)
+//   await useAuthStore().setAuth(data.session)
+// }
+
+export const listenToAuthEvents = () => {
+  const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+    // this is to make await work
+    setTimeout(async () => {
+      await useAuthStore().setAuth(session)
+    }, 0)
+  })
+
+  return data
 }

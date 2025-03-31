@@ -1,4 +1,3 @@
-import { retrieveSession } from '@/lib/supabaseAuth'
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
 
@@ -7,8 +6,8 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async () => {
-  await retrieveSession()
-})
+// router.beforeEach(async () => {
+//   await retrieveSession()
+// })
 
 export default router

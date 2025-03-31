@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import 'iconify-icon'
+
+onMounted(() => {
+  useAuthStore().subscribeToAuthEvents()
+})
 </script>
 
 <template>
