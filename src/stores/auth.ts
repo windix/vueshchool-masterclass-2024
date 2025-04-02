@@ -17,7 +17,10 @@ export const useAuthStore = defineStore('auth-store', () => {
 
     if (!profile.value || profile.value.id !== user.value.id) {
       // if profile exists in store and valid we don't need to fetch it again
-      const { data, error } = await profileQuery(user.value.id)
+      const { data, error } = await profileQuery({
+        column: 'id',
+        value: user.value.id,
+      })
 
       if (error) {
         // TODO: should clear the user session?

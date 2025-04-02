@@ -25,5 +25,6 @@ declare module 'vue-router/auto-routes' {
     '/projects/': RouteRecordInfo<'/projects/', '/projects', Record<never, never>, Record<never, never>>,
     '/projects/[slug]': RouteRecordInfo<'/projects/[slug]', '/projects/:slug', { slug: ParamValue<true> }, { slug: ParamValue<false> }>,
     '/tasks/': RouteRecordInfo<'/tasks/', '/tasks', Record<never, never>, Record<never, never>>,
+    '/users/[username]': RouteRecordInfo<'/users/[username]', '/users/:username', { username: ParamValue<true> }, { username: ParamValue<false> }>,
   }
 }
