@@ -40,7 +40,7 @@ export default defineConfig({
         },
       ],
 
-      dirs: ['./src/stores'],
+      dirs: ['./src/stores/**/*.ts'],
 
       // Filepath to generate corresponding .d.ts file.
       // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
