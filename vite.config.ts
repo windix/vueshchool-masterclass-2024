@@ -7,17 +7,10 @@ import Components from 'unplugin-vue-components/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
-
-import autoprefixer from 'autoprefixer'
-import tailwind from 'tailwindcss'
+import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  css: {
-    postcss: {
-      plugins: [tailwind(), autoprefixer()],
-    },
-  },
   plugins: [
     AutoImport({
       // targets to transform
@@ -54,6 +47,7 @@ export default defineConfig({
       dts: true,
     }),
     VueRouter({}),
+    tailwindcss(),
     vue({
       template: {
         compilerOptions: {

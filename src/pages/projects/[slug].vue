@@ -112,7 +112,9 @@ project.value = await getProject(route.params.slug)
   </div>
 </template>
 
-<style>
+<style scoped>
+@reference '@/assets/index.css';
+
 th {
   @apply w-[100px];
 }

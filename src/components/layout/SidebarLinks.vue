@@ -29,6 +29,8 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
+@reference '@/assets/index.css';
+
 .nav-link {
   @apply flex items-center gap-3 px-4 py-2 mx-2 transition-colors rounded-lg hover:text-primary
   justify-center lg:justify-normal text-muted-foreground;
