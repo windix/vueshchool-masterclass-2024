@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { projectBySlugQuery } from '@/lib/supabaseQueries'
 import type { ProjectWithTasks } from '@/lib/supabaseQueries'
+import { useCollabs } from '@/composables/collabs'
 
 const route = useRoute('/projects/[slug]')
 
@@ -14,13 +15,21 @@ watch(
   { immediate: true },
 )
 
+const { profiles: collabs, getProfilesByIds } = useCollabs()
+
 const getProject = async (slug: string): Promise<ProjectWithTasks | null> => {
   const { data, error } = await projectBySlugQuery(slug)
 
   if (error) {
     console.error(error)
     return null
-  } else {
+  }
+
+  if (data) {
+    if (data.collaborators.length > 0) {
+      await getProfilesByIds(data.collaborators)
+    }
+
     project.value = data
     // usePageStore().pageData.title = data.name
     return data
@@ -49,16 +58,7 @@ project.value = await getProject(route.params.slug)
         <TableHead> Collaborators </TableHead>
         <TableCell>
           <div class="flex">
-            <Avatar
-              class="-mr-4 border border-primary hover:scale-110 transition-transform"
-              v-for="collb in project.collaborators"
-              :key="collb"
-            >
-              <RouterLink class="w-full h-full flex items-center justify-center" to="">
-                <AvatarImage src="" alt="" />
-                <AvatarFallback>{{ collb }}</AvatarFallback>
-              </RouterLink>
-            </Avatar>
+            <CollabAvatars :collabs="collabs" />
           </div>
         </TableCell>
       </TableRow>

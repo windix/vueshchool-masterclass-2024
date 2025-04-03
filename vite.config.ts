@@ -33,7 +33,7 @@ export default defineConfig({
         },
       ],
 
-      dirs: ['./src/stores/**/*.ts'],
+      dirs: ['./src/stores/**/*.ts', './src/composables/**/*.ts'],
 
       // Filepath to generate corresponding .d.ts file.
       // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.

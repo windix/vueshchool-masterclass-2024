@@ -20,6 +20,7 @@ declare module 'vue' {
     CardHeader: typeof import('./src/components/ui/card/CardHeader.vue')['default']
     CardTitle: typeof import('./src/components/ui/card/CardTitle.vue')['default']
     Checkbox: typeof import('./src/components/ui/checkbox/Checkbox.vue')['default']
+    CollabAvatars: typeof import('./src/components/CollabAvatars.vue')['default']
     DataTable: typeof import('./src/components/data-table/DataTable.vue')['default']
     DataTableColumnHeader: typeof import('./src/components/data-table/DataTableColumnHeader.vue')['default']
     DataTableDropdown: typeof import('./src/components/data-table/DataTableDropdown.vue')['default']

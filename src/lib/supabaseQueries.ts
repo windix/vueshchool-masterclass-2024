@@ -38,3 +38,9 @@ export const profileQuery = ({ column, value }: { column: string; value: string 
   supabase.from('profiles').select(`*`).eq(column, value).single()
 
 export type Profile = QueryData<ReturnType<typeof profileQuery>>
+
+export const profilesByIdsQuery = (ids: string[]) =>
+  supabase.from('profiles').select().in('id', ids)
+// .order('username', { ascending: true })
+
+export type Profiles = QueryData<ReturnType<typeof profilesByIdsQuery>>

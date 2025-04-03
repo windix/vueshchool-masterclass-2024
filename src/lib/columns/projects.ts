@@ -1,13 +1,16 @@
 import type { ColumnDef } from '@tanstack/vue-table'
 import { h } from 'vue'
+import type { Ref } from 'vue'
 import DropdownAction from '@/components/data-table/DataTableDropdown.vue'
 import DataTableColumnHeader from '@/components/data-table/DataTableColumnHeader.vue'
 import { Checkbox } from '@/components/ui/checkbox'
 import { RouterLink } from 'vue-router'
 import { formatIsoDateTime } from '@/lib/date'
 import type { Project } from '@/lib/supabaseQueries'
+import type { GroupedCollabs } from '@/composables/collabs'
+import CollabAvatars from '@/components/CollabAvatars.vue'
 
-export const columns: ColumnDef<Project>[] = [
+export const columns = (groupCollabs: Ref<GroupedCollabs>): ColumnDef<Project>[] => [
   {
     id: 'select',
     header: ({ table }) =>
@@ -31,7 +34,11 @@ export const columns: ColumnDef<Project>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) =>
-      h(DataTableColumnHeader<Project, unknown>, { column, class: 'ml-2 h-4 w-4', title: 'Name' }),
+      h(DataTableColumnHeader<Project, unknown>, {
+        column,
+        class: 'ml-2 h-4 w-4',
+        title: 'Name',
+      }),
     cell: ({ row }) =>
       h(
         RouterLink,
@@ -75,7 +82,12 @@ export const columns: ColumnDef<Project>[] = [
         title: 'Collaborators',
       }),
     cell: ({ row }) =>
-      h('div', { class: 'text-left font-medium' }, JSON.stringify(row.getValue('collaborators'))),
+      h(
+        'div',
+        { class: 'text-left font-medium' },
+        // not working as expected
+        h(CollabAvatars, { collabs: groupCollabs.value?.[row.original.id] || [] }),
+      ),
   },
   {
     id: 'actions',
