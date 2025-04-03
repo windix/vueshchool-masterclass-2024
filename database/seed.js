@@ -19,6 +19,16 @@ const logStep = (stepMessage) => {
   console.log(stepMessage)
 }
 
+const collaborators = []
+
+const populateCollaborators = async () => {
+  const { data, error } = await supabase.from('profiles').select('id').limit(5)
+
+  if (error) return logErrorAndExit('Collaborators', error)
+
+  collaborators.push(...data.map((collaborator) => collaborator.id))
+}
+
 const seedProjects = async (numEntries) => {
   logStep('Seeding projects...')
   const projects = []
@@ -31,7 +41,7 @@ const seedProjects = async (numEntries) => {
       slug: slugify(name, { lower: true }),
       description: faker.lorem.paragraph(),
       status: faker.helpers.arrayElement(['in-progress', 'completed']),
-      collaborators: faker.helpers.arrayElements([1, 2, 3]),
+      collaborators: faker.helpers.arrayElements(collaborators),
     })
   }
 
@@ -55,7 +65,7 @@ const seedTasks = async (numEntries, projectsIds) => {
       description: faker.lorem.paragraph(),
       due_date: faker.date.future(),
       project_id: faker.helpers.arrayElement(projectsIds),
-      collaborators: faker.helpers.arrayElements([1, 2, 3]),
+      collaborators: faker.helpers.arrayElements(collaborators),
     })
   }
 
@@ -69,6 +79,8 @@ const seedTasks = async (numEntries, projectsIds) => {
 }
 
 const seedDatabase = async (numEntriesPerTable) => {
+  await populateCollaborators()
+
   const projectsIds = (await seedProjects(numEntriesPerTable)).map((project) => project.id)
   await seedTasks(numEntriesPerTable, projectsIds)
 }
