@@ -7,11 +7,9 @@ usePageStore().pageData.title = 'Projects'
 const projectsLoader = useProjectsStore()
 const { projects } = storeToRefs(projectsLoader)
 const { getProjects } = projectsLoader
-
-await getProjects()
-
 const { groupedCollabs, getGroupedCollabs } = useCollabs()
 
+await getProjects()
 await getGroupedCollabs(projects.value)
 </script>
 

@@ -86,7 +86,13 @@ export const columns = (groupCollabs: Ref<GroupedCollabs>): ColumnDef<Project>[]
         'div',
         { class: 'text-left font-medium' },
         // not working as expected
-        h(CollabAvatars, { collabs: groupCollabs.value?.[row.original.id] || [] }),
+        h(CollabAvatars, {
+          collabs:
+            groupCollabs.value?.[row.original.id] ||
+            row.original.collaborators.map((collab) => ({
+              id: collab,
+            })),
+        }),
       ),
   },
   {

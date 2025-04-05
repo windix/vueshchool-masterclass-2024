@@ -5,7 +5,6 @@ export type GroupedCollabs = Record<number, Profiles>
 
 export const useCollabs = () => {
   const profiles = ref<Profiles>([])
-
   const groupedCollabs = ref<GroupedCollabs>({})
 
   const getProfilesByIds = async (ids: string[]) => {
@@ -22,9 +21,10 @@ export const useCollabs = () => {
 
   const getGroupedCollabs = async (items: Projects | TasksWithProjects) => {
     const result = await Promise.all(
-      items
-        .filter((item) => item.collaborators.length > 0)
-        .map(async (item) => [item.id, await getProfilesByIds(item.collaborators)]),
+      items.map(async (item) => [
+        item.id,
+        item.collaborators.length > 0 ? await getProfilesByIds(item.collaborators) : [],
+      ]),
     )
 
     groupedCollabs.value = Object.fromEntries(result)

@@ -13,6 +13,9 @@ export const useProjectsStore = defineStore('projects-store', () => {
 
     if (error) {
       console.error(error)
+      // do not cache on error
+      loadProjects.delete('projects')
+      return
     }
 
     if (data) {
@@ -24,11 +27,17 @@ export const useProjectsStore = defineStore('projects-store', () => {
 
   const validateCache = async (): Promise<void> => {
     projectsQuery.then(({ data, error }) => {
+      if (error) {
+        console.error(error)
+        return
+      }
+
       if (JSON.stringify(projects.value) === JSON.stringify(data)) {
         return
       } else {
+        // force reload next time
         loadProjects.delete('projects')
-        if (!error && data) {
+        if (data) {
           projects.value = data
         }
       }
