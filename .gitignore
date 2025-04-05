@@ -30,6 +30,7 @@ coverage
 *.tsbuildinfo
 
 .env
+.env.*
 supabase/config.toml
 
 NOTES.txt
