@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { projectBySlugQuery } from '@/lib/supabaseQueries'
-import type { ProjectWithTasks } from '@/lib/supabaseQueries'
-import { useCollabs } from '@/composables/collabs'
-
 const route = useRoute('/projects/[slug]')
 
-const project = ref<ProjectWithTasks | null>(null)
+const projectLoader = useProjectsStore()
+const { collabs, project } = storeToRefs(projectLoader)
+const { getProjectBySlug } = projectLoader
 
 watch(
   () => project.value?.name,
@@ -15,28 +13,7 @@ watch(
   { immediate: true },
 )
 
-const { profiles: collabs, getProfilesByIds } = useCollabs()
-
-const getProject = async (slug: string): Promise<ProjectWithTasks | null> => {
-  const { data, error } = await projectBySlugQuery(slug)
-
-  if (error) {
-    console.error(error)
-    return null
-  }
-
-  if (data) {
-    if (data.collaborators.length > 0) {
-      await getProfilesByIds(data.collaborators)
-    }
-
-    project.value = data
-    // usePageStore().pageData.title = data.name
-    return data
-  }
-}
-
-project.value = await getProject(route.params.slug)
+project.value = await getProjectBySlug(route.params.slug)
 </script>
 
 <template>

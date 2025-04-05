@@ -18,7 +18,7 @@ export type Projects = QueryData<typeof projectsQuery>
 
 export type Project = Projects[0]
 
-export const projectBySlugQuery = (slug: string) =>
+export const projectWithTasksQuery = ({ column, value }: { column: string; value: string }) =>
   supabase
     .from('projects')
     .select(
@@ -29,10 +29,10 @@ export const projectBySlugQuery = (slug: string) =>
     )
     `,
     )
-    .eq('slug', slug)
+    .eq(column, value)
     .single()
 
-export type ProjectWithTasks = QueryData<ReturnType<typeof projectBySlugQuery>>
+export type ProjectWithTasks = QueryData<ReturnType<typeof projectWithTasksQuery>>
 
 export const profileQuery = ({ column, value }: { column: string; value: string }) =>
   supabase.from('profiles').select(`*`).eq(column, value).single()
