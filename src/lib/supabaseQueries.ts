@@ -12,7 +12,8 @@ export type TasksWithProjects = QueryData<typeof tasksWithProjectsQuery>
 
 export type TaskWithProjects = TasksWithProjects[0]
 
-export const projectsQuery = () => supabase.from('projects').select()
+export const projectsQuery = () =>
+  supabase.from('projects').select().order('updated_at', { ascending: false })
 
 export type Projects = QueryData<ReturnType<typeof projectsQuery>>
 

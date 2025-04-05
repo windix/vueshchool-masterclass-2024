@@ -78,6 +78,17 @@ export const columns = (groupCollabs: GroupedCollabs): ColumnDef<Project>[] => [
       h('div', { class: 'text-left font-medium' }, formatIsoDateTime(row.getValue('created_at'))),
   },
   {
+    accessorKey: 'updated_at',
+    header: ({ column }) =>
+      h(DataTableColumnHeader<Project, unknown>, {
+        column,
+        class: 'ml-2 h-4 w-4',
+        title: 'Updated',
+      }),
+    cell: ({ row }) =>
+      h('div', { class: 'text-left font-medium' }, formatIsoDateTime(row.getValue('updated_at'))),
+  },
+  {
     accessorKey: 'collaborators',
     header: ({ column }) =>
       h(DataTableColumnHeader<Project, unknown>, {

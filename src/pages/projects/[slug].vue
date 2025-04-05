@@ -46,7 +46,7 @@ const updateProject = async () => {
       <TableRow>
         <TableHead> Description </TableHead>
         <TableCell>
-          <AppInPlaceEditInput v-model="project.description" @commit="updateProject" />
+          <AppInPlaceEditTextarea v-model="project.description" @commit="updateProject" />
         </TableCell>
       </TableRow>
       <TableRow>
