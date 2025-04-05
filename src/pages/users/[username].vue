@@ -6,6 +6,8 @@ import { profileQuery } from '@/lib/supabaseQueries'
 
 const router = useRoute('/users/[username]')
 
+usePageStore().pageData.title = ''
+
 const profile = ref<Profile | null>(null)
 const usernameTwoLetter = ref('')
 
