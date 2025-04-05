@@ -64,7 +64,7 @@ project.value = await getProject(route.params.slug)
       </TableRow>
     </Table>
 
-    <section class="mt-10 flex flex-col md:flex-row gap-5 justify-between grow">
+    <section class="mt-10 flex grow flex-col justify-between gap-5 md:flex-row">
       <div class="flex-1">
         <h2>Tasks</h2>
         <div class="table-container">
@@ -89,7 +89,7 @@ project.value = await getProject(route.params.slug)
       <div class="flex-1">
         <h2>Documents</h2>
         <div class="table-container">
-          <p class="text-muted-foreground text-sm font-semibold px-4 py-3">
+          <p class="px-4 py-3 text-sm font-semibold text-muted-foreground">
             This project doesn't have documents yet...
           </p>
           <!-- <Table>
@@ -120,10 +120,10 @@ th {
 }
 
 h2 {
-  @apply mb-4 text-lg font-semibold w-fit;
+  @apply mb-4 w-fit text-lg font-semibold;
 }
 
 .table-container {
-  @apply overflow-hidden overflow-y-auto rounded-md h-80;
+  @apply h-80 overflow-hidden overflow-y-auto rounded-md;
 }
 </style>

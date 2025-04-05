@@ -74,7 +74,7 @@ const table = useVueTable({
       <DataTableFilterInput :table="table" :column-name="'name'" />
       <DataTableViewOptions :table="table" />
     </div>
-    <div class="border rounded-md">
+    <div class="rounded-md border">
       <Table>
         <TableHeader>
           <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">

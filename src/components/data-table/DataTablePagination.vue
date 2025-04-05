@@ -48,39 +48,39 @@ defineProps<DataTablePaginationProps>()
       <div class="flex items-center space-x-2">
         <Button
           variant="outline"
-          class="hidden w-8 h-8 p-0 lg:flex"
+          class="hidden h-8 w-8 p-0 lg:flex"
           :disabled="!table.getCanPreviousPage()"
           @click="table.setPageIndex(0)"
         >
           <span class="sr-only">Go to first page</span>
-          <ChevronsLeftIcon class="w-4 h-4" />
+          <ChevronsLeftIcon class="h-4 w-4" />
         </Button>
         <Button
           variant="outline"
-          class="w-8 h-8 p-0"
+          class="h-8 w-8 p-0"
           :disabled="!table.getCanPreviousPage()"
           @click="table.previousPage()"
         >
           <span class="sr-only">Go to previous page</span>
-          <ChevronLeftIcon class="w-4 h-4" />
+          <ChevronLeftIcon class="h-4 w-4" />
         </Button>
         <Button
           variant="outline"
-          class="w-8 h-8 p-0"
+          class="h-8 w-8 p-0"
           :disabled="!table.getCanNextPage()"
           @click="table.nextPage()"
         >
           <span class="sr-only">Go to next page</span>
-          <ChevronRightIcon class="w-4 h-4" />
+          <ChevronRightIcon class="h-4 w-4" />
         </Button>
         <Button
           variant="outline"
-          class="hidden w-8 h-8 p-0 lg:flex"
+          class="hidden h-8 w-8 p-0 lg:flex"
           :disabled="!table.getCanNextPage()"
           @click="table.setPageIndex(table.getPageCount() - 1)"
         >
           <span class="sr-only">Go to last page</span>
-          <ChevronsRightIcon class="w-4 h-4" />
+          <ChevronsRightIcon class="h-4 w-4" />
         </Button>
       </div>
     </div>

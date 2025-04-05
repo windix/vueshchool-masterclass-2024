@@ -15,5 +15,9 @@
   },
   "editor.quickSuggestions": {
     "strings": "on"
-  }
+  },
+  // "css.customData": [".vscode/tailwind.json"],
+  // for tailwindcss4
+  "tailwindCSS.experimental.configFile": "src/assets/index.css",
+  "tailwindCSS.validate": false
 }

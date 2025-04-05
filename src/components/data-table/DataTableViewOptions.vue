@@ -17,8 +17,8 @@ const columns = computed(() =>
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button variant="outline" size="sm" class="hidden h-8 ml-auto lg:flex">
-        <SlidersHorizontalIcon class="w-4 h-4 mr-2" />
+      <Button variant="outline" size="sm" class="ml-auto hidden h-8 lg:flex">
+        <SlidersHorizontalIcon class="mr-2 h-4 w-4" />
         View
       </Button>
     </DropdownMenuTrigger>

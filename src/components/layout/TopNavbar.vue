@@ -1,13 +1,13 @@
 <script setup lang="ts"></script>
 
 <template>
-  <nav class="h-16 border-b bg-muted/40 flex gap-2 justify-between px-6 items-center">
+  <nav class="flex h-16 items-center justify-between gap-2 border-b bg-muted/40 px-6">
     <form class="relative h-fit w-full max-w-96">
       <iconify-icon
-        class="absolute top-[50%] translate-y-[-50%] left-2.5 text-muted-foreground"
+        class="absolute top-[50%] left-2.5 translate-y-[-50%] text-muted-foreground"
         icon="lucide:search"
       ></iconify-icon>
-      <Input class="w-full pl-8 bg-background" type="text" placeholder="Search ..." />
+      <Input class="w-full bg-background pl-8" type="text" placeholder="Search ..." />
     </form>
     <DropdownMenu>
       <DropdownMenuTrigger>

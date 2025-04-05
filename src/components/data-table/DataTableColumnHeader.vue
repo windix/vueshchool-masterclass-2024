@@ -23,9 +23,9 @@ export default {
       <DropdownMenuTrigger as-child>
         <Button variant="ghost" size="sm" class="-ml-3 h-8 data-[state=open]:bg-accent">
           <span>{{ title }}</span>
-          <ArrowDownIcon v-if="column.getIsSorted() === 'desc'" class="w-4 h-4 ml-2" />
-          <ArrowUpIcon v-else-if="column.getIsSorted() === 'asc'" class="w-4 h-4 ml-2" />
-          <ChevronsUpDownIcon v-else class="w-4 h-4 ml-2" />
+          <ArrowDownIcon v-if="column.getIsSorted() === 'desc'" class="ml-2 h-4 w-4" />
+          <ArrowUpIcon v-else-if="column.getIsSorted() === 'asc'" class="ml-2 h-4 w-4" />
+          <ChevronsUpDownIcon v-else class="ml-2 h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">

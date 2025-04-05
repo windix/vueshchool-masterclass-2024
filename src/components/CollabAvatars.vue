@@ -10,13 +10,13 @@ const { collabs } = defineProps<{
 
 <template>
   <Avatar
-    class="-mr-4 border border-primary hover:scale-110 transition-transform"
+    class="-mr-4 border border-primary transition-transform hover:scale-110"
     v-for="collab in collabs"
     :key="collab.id"
   >
     <template v-if="collab.username && collab.avatar_url">
       <RouterLink
-        class="w-full h-full flex items-center justify-center"
+        class="flex h-full w-full items-center justify-center"
         :to="{
           name: '/users/[username]',
           params: { username: collab.username },
