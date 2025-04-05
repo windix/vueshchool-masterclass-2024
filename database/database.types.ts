@@ -43,6 +43,7 @@ export type Database = {
           id: string
           last_name: string
           mode: string
+          updated_at: string
           username: string
         }
         Insert: {
@@ -53,6 +54,7 @@ export type Database = {
           id: string
           last_name: string
           mode?: string
+          updated_at?: string
           username: string
         }
         Update: {
@@ -63,6 +65,7 @@ export type Database = {
           id?: string
           last_name?: string
           mode?: string
+          updated_at?: string
           username?: string
         }
         Relationships: []
@@ -71,29 +74,32 @@ export type Database = {
         Row: {
           collaborators: string[]
           created_at: string
-          description: string | null
+          description: string
           id: number
           name: string
           slug: string
           status: Database["public"]["Enums"]["current_status"]
+          updated_at: string
         }
         Insert: {
           collaborators?: string[]
           created_at?: string
-          description?: string | null
+          description?: string
           id?: never
           name: string
           slug: string
           status?: Database["public"]["Enums"]["current_status"]
+          updated_at?: string
         }
         Update: {
           collaborators?: string[]
           created_at?: string
-          description?: string | null
+          description?: string
           id?: never
           name?: string
           slug?: string
           status?: Database["public"]["Enums"]["current_status"]
+          updated_at?: string
         }
         Relationships: []
       }
@@ -107,6 +113,7 @@ export type Database = {
           name: string
           project_id: number | null
           status: Database["public"]["Enums"]["current_status"]
+          updated_at: string
         }
         Insert: {
           collaborators?: string[]
@@ -117,6 +124,7 @@ export type Database = {
           name: string
           project_id?: number | null
           status?: Database["public"]["Enums"]["current_status"]
+          updated_at?: string
         }
         Update: {
           collaborators?: string[]
@@ -127,6 +135,7 @@ export type Database = {
           name?: string
           project_id?: number | null
           status?: Database["public"]["Enums"]["current_status"]
+          updated_at?: string
         }
         Relationships: [
           {
