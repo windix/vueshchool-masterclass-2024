@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppInPlaceEditProjectStatus from '@/components/app-in-place-edit/AppInPlaceEditProjectStatus.vue'
 import { updateProjectQuery } from '@/lib/supabaseQueries'
 
 const route = useRoute('/projects/[slug]')
@@ -50,7 +51,9 @@ const updateProject = async () => {
       </TableRow>
       <TableRow>
         <TableHead> Status </TableHead>
-        <TableCell>{{ project.status }}</TableCell>
+        <TableCell>
+          <AppInPlaceEditProjectStatus v-model="project.status" @commit="updateProject" />
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableHead> Collaborators </TableHead>

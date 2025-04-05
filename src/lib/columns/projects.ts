@@ -7,6 +7,7 @@ import { RouterLink } from 'vue-router'
 import { formatIsoDateTime } from '@/lib/date'
 import type { Project } from '@/lib/supabaseQueries'
 import CollabAvatars from '@/components/CollabAvatars.vue'
+import AppInPlaceEditProjectStatus from '@/components/app-in-place-edit/AppInPlaceEditProjectStatus.vue'
 
 export const columns = (groupCollabs: GroupedCollabs): ColumnDef<Project>[] => [
   {
@@ -58,7 +59,12 @@ export const columns = (groupCollabs: GroupedCollabs): ColumnDef<Project>[] => [
         class: 'ml-2 h-4 w-4',
         title: 'Status',
       }),
-    cell: ({ row }) => h('div', { class: 'text-left font-medium' }, row.getValue('status')),
+    cell: ({ row }) =>
+      h(
+        'div',
+        { class: 'text-left' },
+        h(AppInPlaceEditProjectStatus, { modelValue: row.getValue('status'), readonly: true }),
+      ),
   },
   {
     accessorKey: 'created_at',
