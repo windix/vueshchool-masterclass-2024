@@ -46,5 +46,12 @@ export const profilesByIdsQuery = (ids: string[]) =>
 
 export type Profiles = QueryData<ReturnType<typeof profilesByIdsQuery>>
 
+export const profilesQuery = () =>
+  supabase.from('profiles').select().order('username', { ascending: true })
+
 export const updateProjectQuery = (id: number, data: Partial<Omit<Project, 'id'>>) =>
   supabase.from('projects').update(data).eq('id', id).select().single()
+
+export const insertTaskQuery = (
+  data: Omit<TaskWithProjects, 'id' | 'projects' | 'created_at' | 'updated_at'>,
+) => supabase.from('tasks').insert(data).select().single()
