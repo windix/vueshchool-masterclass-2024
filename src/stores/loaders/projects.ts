@@ -14,6 +14,8 @@ export const useProjectsStore = defineStore('projects-store', () => {
   )
 
   const getProjects = async (): Promise<void> => {
+    projects.value = []
+
     const { data, error } = await loadProjects('projects')
 
     if (error) {
@@ -38,6 +40,8 @@ export const useProjectsStore = defineStore('projects-store', () => {
   const { profiles: collabs, getProfilesByIds } = useCollabs()
 
   const getProjectBySlug = async (slug: string): Promise<ProjectWithTasks | null> => {
+    project.value = null
+
     const { data, error } = await loadProjectBySlug(slug)
 
     if (error && !data) {

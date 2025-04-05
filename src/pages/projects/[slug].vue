@@ -10,7 +10,7 @@ watch(
   (newValue) => {
     usePageStore().pageData.title = `Project: ${newValue || ''}`
   },
-  { immediate: true },
+  // { immediate: true },
 )
 
 project.value = await getProjectBySlug(route.params.slug)
