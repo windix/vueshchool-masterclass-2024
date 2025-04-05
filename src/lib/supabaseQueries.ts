@@ -44,3 +44,6 @@ export const profilesByIdsQuery = (ids: string[]) =>
 // .order('username', { ascending: true })
 
 export type Profiles = QueryData<ReturnType<typeof profilesByIdsQuery>>
+
+export const updateProjectQuery = (id: number, data: Partial<Omit<Project, 'id'>>) =>
+  supabase.from('projects').update(data).eq('id', id).select().single()

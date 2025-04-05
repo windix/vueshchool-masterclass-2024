@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { updateProjectQuery } from '@/lib/supabaseQueries'
+
 const route = useRoute('/projects/[slug]')
 
 const projectLoader = useProjectsStore()
@@ -14,6 +16,21 @@ watch(
 )
 
 project.value = await getProjectBySlug(route.params.slug)
+
+const updateProject = async () => {
+  if (!project.value) {
+    return
+  }
+
+  const { id, tasks, ...dataToUpdate } = project.value
+
+  const { error } = await updateProjectQuery(project.value.id, dataToUpdate)
+
+  if (error) {
+    console.error('Error updating project:', error)
+    return
+  }
+}
 </script>
 
 <template>
@@ -21,11 +38,15 @@ project.value = await getProjectBySlug(route.params.slug)
     <Table>
       <TableRow>
         <TableHead> Name </TableHead>
-        <TableCell>{{ project.name }}</TableCell>
+        <TableCell>
+          <AppInPlaceEditInput v-model="project.name" @commit="updateProject" />
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableHead> Description </TableHead>
-        <TableCell>{{ project.description }}</TableCell>
+        <TableCell>
+          <AppInPlaceEditInput v-model="project.description" @commit="updateProject" />
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableHead> Status </TableHead>
