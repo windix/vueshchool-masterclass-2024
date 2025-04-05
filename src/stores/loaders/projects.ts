@@ -7,7 +7,7 @@ export const useProjectsStore = defineStore('projects-store', () => {
   const project = ref<ProjectWithTasks | null>(null)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const loadProjects = useMemoize(async (key: string) => projectsQuery)
+  const loadProjects = useMemoize(async (key: string) => projectsQuery())
 
   const loadProjectBySlug = useMemoize(async (slug: string) =>
     projectWithTasksQuery({ column: 'slug', value: slug }),
@@ -27,7 +27,12 @@ export const useProjectsStore = defineStore('projects-store', () => {
       projects.value = data
     }
 
-    validateProjectsCache()
+    validateCache({
+      ref: projects,
+      key: 'projects',
+      queryFn: () => projectsQuery(),
+      loaderFn: loadProjects,
+    })
   }
 
   const { profiles: collabs, getProfilesByIds } = useCollabs()
@@ -48,47 +53,40 @@ export const useProjectsStore = defineStore('projects-store', () => {
     project.value = data
     // usePageStore().pageData.title = data.name
 
-    validateProjectCache(slug)
+    validateCache({
+      ref: project,
+      key: slug,
+      queryFn: () => projectWithTasksQuery({ column: 'slug', value: slug }),
+      loaderFn: loadProjectBySlug,
+    })
 
     return data
   }
 
-  const validateProjectsCache = async (): Promise<void> => {
-    projectsQuery.then(({ data, error }) => {
-      if (error) {
-        console.error(error)
-        return
-      }
-
-      if (JSON.stringify(projects.value) === JSON.stringify(data)) {
-        return
-      } else {
-        // force reload next time
-        loadProjects.delete('projects')
-        if (data) {
-          projects.value = data
-        }
-      }
-    })
+  type ValidateCacheArgs = {
+    ref: typeof projects | typeof project
+    key: string
+    queryFn: (...args: unknown[]) => ReturnType<typeof projectsQuery | typeof projectWithTasksQuery>
+    loaderFn: typeof loadProjects | typeof loadProjectBySlug
   }
 
-  const validateProjectCache = async (slug: string): Promise<void> => {
-    projectWithTasksQuery({ column: 'slug', value: slug }).then(({ data, error }) => {
-      if (error) {
-        console.error(error)
-        return
-      }
+  const validateCache = async ({ ref, key, queryFn, loaderFn }: ValidateCacheArgs) => {
+    const { data, error } = await queryFn()
 
-      if (JSON.stringify(projects.value) === JSON.stringify(data)) {
-        return
-      } else {
-        // force reload next time
-        loadProjectBySlug.delete(slug)
-        if (data) {
-          project.value = data
-        }
+    if (error) {
+      console.error(error)
+      return
+    }
+
+    if (JSON.stringify(ref.value) === JSON.stringify(data)) {
+      return
+    } else {
+      // force reload next time
+      loaderFn.delete(key)
+      if (data) {
+        ref.value = data
       }
-    })
+    }
   }
 
   return {
@@ -99,7 +97,3 @@ export const useProjectsStore = defineStore('projects-store', () => {
     getProjectBySlug,
   }
 })
-
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useProjectsStore, import.meta.hot))
-}
