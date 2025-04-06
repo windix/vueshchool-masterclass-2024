@@ -35,7 +35,7 @@ export const columns = (groupCollabs: GroupedCollabs): ColumnDef<Project>[] => [
     header: ({ column }) =>
       h(DataTableColumnHeader<Project, unknown>, {
         column,
-        class: 'ml-2 h-4 w-4',
+        class: 'ml-2 size-4',
         title: 'Name',
       }),
     cell: ({ row }) =>
@@ -56,7 +56,7 @@ export const columns = (groupCollabs: GroupedCollabs): ColumnDef<Project>[] => [
     header: ({ column }) =>
       h(DataTableColumnHeader<Project, unknown>, {
         column,
-        class: 'ml-2 h-4 w-4',
+        class: 'ml-2 size-4',
         title: 'Status',
       }),
     cell: ({ row }) =>
@@ -71,7 +71,7 @@ export const columns = (groupCollabs: GroupedCollabs): ColumnDef<Project>[] => [
     header: ({ column }) =>
       h(DataTableColumnHeader<Project, unknown>, {
         column,
-        class: 'ml-2 h-4 w-4',
+        class: 'ml-2 size-4',
         title: 'Created',
       }),
     cell: ({ row }) =>
@@ -82,7 +82,7 @@ export const columns = (groupCollabs: GroupedCollabs): ColumnDef<Project>[] => [
     header: ({ column }) =>
       h(DataTableColumnHeader<Project, unknown>, {
         column,
-        class: 'ml-2 h-4 w-4',
+        class: 'ml-2 size-4',
         title: 'Updated',
       }),
     cell: ({ row }) =>
@@ -93,13 +93,13 @@ export const columns = (groupCollabs: GroupedCollabs): ColumnDef<Project>[] => [
     header: ({ column }) =>
       h(DataTableColumnHeader<Project, unknown>, {
         column,
-        class: 'ml-2 h-4 w-4',
+        class: 'ml-2 size-4',
         title: 'Collaborators',
       }),
     cell: ({ row }) =>
       h(
         'div',
-        { class: 'text-left font-medium' },
+        { class: 'flex' },
         h(CollabAvatars, {
           collabs:
             groupCollabs[row.original.id] ||
