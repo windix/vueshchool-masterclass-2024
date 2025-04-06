@@ -23,7 +23,7 @@ const register = async () => {
   <div
     class="mx-auto -mt-10 flex h-full min-h-[90vh] w-full items-center justify-center p-10 text-center"
   >
-    <Card class="mx-auto h-full w-full max-w-sm">
+    <Card class="mx-auto w-full max-w-sm">
       <CardHeader>
         <CardTitle class="text-2xl"> Register </CardTitle>
         <CardDescription> Create a new account </CardDescription>
