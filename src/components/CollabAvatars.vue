@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import { fallbackInitials } from '@/lib/profileHelpers'
+
 const { collabs } = defineProps<{
   collabs: {
     id: string
     username: string | null
+    first_name: string | null
+    last_name: string | null
     avatar_url: string | null
   }[]
 }>()
@@ -14,7 +18,7 @@ const { collabs } = defineProps<{
     v-for="collab in collabs"
     :key="collab.id"
   >
-    <template v-if="collab.username && collab.avatar_url">
+    <template v-if="collab.username">
       <RouterLink
         class="flex h-full w-full items-center justify-center"
         :to="{
@@ -22,8 +26,8 @@ const { collabs } = defineProps<{
           params: { username: collab.username },
         }"
       >
-        <AvatarImage :src="collab.avatar_url" :alt="collab.username" />
-        <AvatarFallback>{{ collab.username }}</AvatarFallback>
+        <AvatarImage :src="collab.avatar_url || ''" :alt="collab.username" />
+        <AvatarFallback>{{ fallbackInitials(collab) }}</AvatarFallback>
       </RouterLink>
     </template>
   </Avatar>

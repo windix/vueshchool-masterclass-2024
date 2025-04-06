@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { profile } = storeToRefs(useAuthStore())
+</script>
 
 <template>
   <nav class="flex h-16 items-center justify-between gap-2 border-b bg-muted/40 px-6">
@@ -11,10 +13,7 @@
     </form>
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar>
-          <AvatarImage src="https://github.com/unovue.png" alt="@unovue" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        <ProfileAvatar :profile="profile" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>

@@ -4,10 +4,15 @@ import 'iconify-icon'
 onMounted(() => {
   useAuthStore().subscribeToAuthEvents()
 })
+
+const { user } = storeToRefs(useAuthStore())
+
+const AuthLayout = defineAsyncComponent(() => import('@/components/layout/main/AuthLayout.vue'))
+const GuestLayout = defineAsyncComponent(() => import('@/components/layout/main/GuestLayout.vue'))
 </script>
 
 <template>
-  <AuthLayout>
+  <Component :is="user ? AuthLayout : GuestLayout">
     <RouterView v-slot="{ Component, route }">
       <Suspense v-if="Component" :timeout="0">
         <!-- main content -->
@@ -18,5 +23,5 @@ onMounted(() => {
         </template>
       </Suspense>
     </RouterView>
-  </AuthLayout>
+  </Component>
 </template>
