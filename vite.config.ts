@@ -31,6 +31,9 @@ export default defineConfig({
         {
           pinia: ['defineStore', 'storeToRefs', 'acceptHMRUpdate'],
         },
+        {
+          'vue-meta': ['useMeta'],
+        },
       ],
 
       dirs: ['./src/stores/**/*.ts', './src/composables/**/*.ts'],

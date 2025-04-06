@@ -12,11 +12,19 @@ watch(
   () => project.value?.name,
   (newValue) => {
     usePageStore().pageData.title = `Project: ${newValue || ''}`
+
+    // useMeta({
+    //   title: `Project: ${newValue || ''} | Pulse`,
+    // })
   },
   // { immediate: true },
 )
 
 project.value = await getProjectBySlug(route.params.slug)
+
+useMeta({
+  title: `Project: ${project.value?.name} | Pulse`,
+})
 
 const updateProject = async () => {
   if (!project.value) {

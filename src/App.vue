@@ -7,9 +7,14 @@ const { user } = storeToRefs(useAuthStore())
 
 const AuthLayout = defineAsyncComponent(() => import('@/components/layout/main/AuthLayout.vue'))
 const GuestLayout = defineAsyncComponent(() => import('@/components/layout/main/GuestLayout.vue'))
+
+useMeta({
+  title: 'Pulse',
+})
 </script>
 
 <template>
+  <metainfo />
   <Transition name="fade" mode="out-in">
     <Component :is="user ? AuthLayout : GuestLayout" :key="user?.id">
       <RouterView v-slot="{ Component, route }">
