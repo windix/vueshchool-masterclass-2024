@@ -42,10 +42,14 @@ export const useProjectsStore = defineStore('projects-store', () => {
   const getProjectBySlug = async (slug: string): Promise<ProjectWithTasks | null> => {
     project.value = null
 
-    const { data, error } = await loadProjectBySlug(slug)
+    const { data, error, status } = await loadProjectBySlug(slug)
 
     if (error && !data) {
-      console.error(error)
+      useErrorStore().setPostgrestError({
+        error,
+        status,
+      })
+
       return null
     }
 
@@ -55,7 +59,6 @@ export const useProjectsStore = defineStore('projects-store', () => {
     }
 
     project.value = data
-    // usePageStore().pageData.title = data.name
 
     validateCache({
       ref: project,
@@ -101,3 +104,7 @@ export const useProjectsStore = defineStore('projects-store', () => {
     getProjectBySlug,
   }
 })
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useProjectsStore, import.meta.hot))
+}

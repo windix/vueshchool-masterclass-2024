@@ -11,10 +11,19 @@ usePageStore().pageData.title = ''
 const profile = ref<Profile | null>(null)
 
 const getProfile = async () => {
-  const { data } = await profileQuery({
+  const { data, error, status } = await profileQuery({
     column: 'username',
     value: router.params.username,
   })
+
+  if (error) {
+    useErrorStore().setPostgrestError({
+      error,
+      status,
+    })
+    return
+  }
+
   profile.value = data
 }
 

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { error } = storeToRefs(useErrorStore())
+
 onMounted(() => {
   useAuthStore().subscribeToAuthEvents()
 })
@@ -12,7 +14,8 @@ const GuestLayout = defineAsyncComponent(() => import('@/components/layout/main/
 <template>
   <Transition name="fade" mode="out-in">
     <Component :is="user ? AuthLayout : GuestLayout" :key="user?.id">
-      <RouterView v-slot="{ Component, route }">
+      <AppErrorPage v-if="error" />
+      <RouterView v-else v-slot="{ Component, route }">
         <Transition name="fade" mode="out-in">
           <div class="w-full" :key="route.path">
             <Suspense v-if="Component" :timeout="0">

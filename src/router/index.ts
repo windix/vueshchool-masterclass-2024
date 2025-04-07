@@ -8,6 +8,8 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
+  // usePageStore().pageData.title = ''
+
   const authStore = useAuthStore()
 
   // wait for pinia store updates before navigating
@@ -16,6 +18,10 @@ router.beforeEach(async (to) => {
   if (!authStore.user && to.name !== '/auth/login' && to.name !== '/auth/register') {
     return { name: '/auth/login' }
   }
+})
+
+router.afterEach(() => {
+  useErrorStore().clearError()
 })
 
 export default router
