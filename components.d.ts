@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppErrorPage: typeof import('./src/components/AppErrorPage.vue')['default']
     AppInPlaceEditInput: typeof import('./src/components/app-in-place-edit/AppInPlaceEditInput.vue')['default']
     AppInPlaceEditProjectStatus: typeof import('./src/components/app-in-place-edit/AppInPlaceEditProjectStatus.vue')['default']
     AppInPlaceEditTextarea: typeof import('./src/components/app-in-place-edit/AppInPlaceEditTextarea.vue')['default']
