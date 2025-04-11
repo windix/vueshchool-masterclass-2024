@@ -1,4 +1,5 @@
 import type { AuthError } from '@supabase/auth-js'
+import type { LoginForm } from '@/types/AuthForm'
 
 export const useFormErrors = () => {
   const serverError = ref('')
@@ -11,8 +12,28 @@ export const useFormErrors = () => {
     }
   }
 
+  const realtimeErrors = ref<{
+    email: string[]
+    password: string[]
+  }>()
+
+  const handleLoginForm = async (formData: LoginForm) => {
+    realtimeErrors.value = {
+      email: [],
+      password: [],
+    }
+
+    const { validateEmail, validatePassword } = await import('@/lib/formValidations')
+
+    realtimeErrors.value.email = validateEmail(formData.email)
+
+    realtimeErrors.value.password = validatePassword(formData.password)
+  }
+
   return {
     serverError,
     handleServerError,
+    realtimeErrors,
+    handleLoginForm,
   }
 }

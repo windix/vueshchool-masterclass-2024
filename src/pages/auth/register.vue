@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { signUp } from '@/lib/supabaseAuth'
+import type { RegisterForm } from '@/types/AuthForm'
 
 const router = useRouter()
 
-const formData = ref({
+const formData = ref<
+  RegisterForm & {
+    confirm_password: string
+  }
+>({
   username: '',
   first_name: '',
   last_name: '',
