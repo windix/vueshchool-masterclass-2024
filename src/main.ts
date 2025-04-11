@@ -15,4 +15,8 @@ app.use(createPinia())
 app.use(router)
 app.use(plugin, defaultConfig(formKitConfig))
 
+// app.config.errorHandler = (err, instance, info) => {
+//   //...
+// }
+
 app.mount('#app')

@@ -1,6 +1,11 @@
 <script setup lang="ts">
 const { error } = storeToRefs(useErrorStore())
 
+onErrorCaptured((error) => {
+  useErrorStore().setError({ error, customCode: 500 })
+  return false
+})
+
 onMounted(() => {
   useAuthStore().subscribeToAuthEvents()
 })
