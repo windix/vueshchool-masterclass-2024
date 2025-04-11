@@ -6,7 +6,7 @@ const formData = ref({
   password: '',
 })
 
-const loginError = ref('')
+const { serverError, handleServerError } = useFormErrors()
 
 const router = useRouter()
 
@@ -14,11 +14,10 @@ const login = async () => {
   const { error } = await signIn(formData.value)
 
   if (error) {
-    loginError.value = error.message
-    return
+    handleServerError(error)
+  } else {
+    router.push('/')
   }
-
-  router.push('/')
 }
 </script>
 
@@ -46,7 +45,7 @@ const login = async () => {
               v-model="formData.email"
               placeholder="johndoe19@example.com"
               required
-              :class="{ 'border-red-500': loginError }"
+              :class="{ 'border-red-500': serverError }"
             />
           </div>
           <div class="grid gap-2">
@@ -60,13 +59,13 @@ const login = async () => {
               type="password"
               autocomplete
               required
-              :class="{ 'border-red-500': loginError }"
+              :class="{ 'border-red-500': serverError }"
             />
           </div>
 
-          <ul v-if="loginError" class="ml-4 text-left text-sm text-red-500">
+          <ul v-if="serverError" class="ml-4 text-left text-sm text-red-500">
             <li class="list-disc">
-              {{ loginError }}
+              {{ serverError }}
             </li>
           </ul>
 
