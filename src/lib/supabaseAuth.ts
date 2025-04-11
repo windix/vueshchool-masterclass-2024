@@ -40,17 +40,11 @@ export const signIn = async (formData: LoginForm) => {
     password: formData.password,
   })
 
-  if (error) {
-    console.error('Error signing in:', error)
-    return false
-  }
-
-  if (data.user) {
-    console.log('User signed in:', data)
-
+  if (data.session) {
     await useAuthStore().setAuth(data.session)
-    return true
   }
+
+  return { error }
 }
 
 export const signOut = async () => {
