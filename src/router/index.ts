@@ -10,13 +10,19 @@ const router = createRouter({
 router.beforeEach(async (to) => {
   // usePageStore().pageData.title = ''
 
-  const authStore = useAuthStore()
+  const { user } = storeToRefs(useAuthStore())
 
   // wait for pinia store updates before navigating
   await retrieveSession()
 
-  if (!authStore.user && to.name !== '/auth/login' && to.name !== '/auth/register') {
+  const isAuthPage = ['/auth/login', '/auth/register'].includes(to.path)
+
+  if (!user.value && !isAuthPage) {
     return { name: '/auth/login' }
+  }
+
+  if (user.value && isAuthPage) {
+    return { name: '/' }
   }
 })
 
