@@ -12,10 +12,11 @@ export const useFormErrors = () => {
     }
   }
 
-  const realtimeErrors = ref<{
-    email: string[]
-    password: string[]
-  }>()
+  type FormErrors<T> = {
+    [K in keyof T]: T[K][]
+  }
+
+  const realtimeErrors = ref<FormErrors<LoginForm>>()
 
   const handleLoginForm = async (formData: LoginForm) => {
     realtimeErrors.value = {
